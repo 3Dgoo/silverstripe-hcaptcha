@@ -1,0 +1,40 @@
+{
+    "name": "X3dgoo/silverstripe-hcaptcha",
+    "description": "A spam protector and form field using hCaptcha",
+    "type": "silverstripe-vendormodule",
+    "keywords": ["silverstripe", "hcaptcha", "spamprotection"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "3dgoo",
+            "email": "michael@3dgoo.com",
+            "homepage": "https://www.3dgoo.com"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "^4.0",
+        "silverstripe/vendor-plugin": "^1.0",
+        "silverstripe/spamprotection": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "squizlabs/php_codesniffer": "*"
+    },
+    "extra": {
+        "installer-name": "silverstripe-hcaptcha"
+    },
+    "autoload": {
+        "psr-4": {
+            "X3dgoo\\silverstripe-hcaptcha\\": "src/"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/3dgoo/silverstripe-hcaptcha/issues"
+    },
+    "scripts": {
+        "lint": "vendor/bin/phpcs src/ tests/",
+        "lint-clean": "vendor/bin/phpcbf src/ tests/"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

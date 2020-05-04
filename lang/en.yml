@@ -1,0 +1,5 @@
+en:
+  X3dgoo\HCaptcha\Forms\HCaptchaField:
+    EMPTY: "Please answer the captcha. If you do not see the captcha please enable Javascript"
+    NOSCRIPT: "You must enable Javascript to submit this form"
+    VALIDATE_ERROR: "Captcha could not be validated"
