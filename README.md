@@ -9,6 +9,8 @@
 
 A spam protection field for Silverstripe using the hCaptcha service.
 
+![hCaptcha screenshot](docs/en/images/hcaptcha-screenshot.png)
+
 ## Requirements
 
 * Silverstripe Framework 4.x
@@ -21,7 +23,7 @@ A spam protection field for Silverstripe using the hCaptcha service.
 
 ## Configuration
 
-After installing the module via composer we must set the spam protector to HCaptchaProtector through a config yml file. 
+After installing the module via composer we must set the spam protector to HCaptchaProtector through a config yml file.
 
 Create a `app/_config/spamprotection.yml` file and add the following details:
 
