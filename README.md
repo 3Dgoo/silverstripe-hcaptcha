@@ -9,7 +9,7 @@
 
 A spam protection field for Silverstripe using the hCaptcha service.
 
-![hCaptcha screenshot](docs/en/images/hcaptcha-screenshot.png =304x)
+<img src="docs/en/images/hcaptcha-screenshot.png" alt="hCaptcha screenshot" width="304" />
 
 ## Requirements
 
