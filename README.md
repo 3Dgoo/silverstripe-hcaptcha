@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/3dgoo/silverstripe-hcaptcha.svg?branch=master)](https://travis-ci.org/3dgoo/silverstripe-hcaptcha)
 [![codecov.io](https://codecov.io/github/3dgoo/silverstripe-hcaptcha/coverage.svg?branch=master)](https://codecov.io/gh/3dgoo/silverstripe-hcaptcha?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/3dgoo/silverstripe-hcaptcha/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/3dgoo/silverstripe-hcaptcha/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/3dgoo/silverstripe-hcaptcha/v/stable)](https://packagist.org/packages/3dgoo/silverstripe-hcaptcha)
 [![Total Downloads](https://poser.pugx.org/3dgoo/silverstripe-hcaptcha/downloads)](https://packagist.org/packages/3dgoo/silverstripe-hcaptcha)
 [![Latest Unstable Version](https://poser.pugx.org/3dgoo/silverstripe-hcaptcha/v/unstable)](https://packagist.org/packages/3dgoo/silverstripe-hcaptcha)
