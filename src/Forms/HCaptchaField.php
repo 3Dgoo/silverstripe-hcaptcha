@@ -81,7 +81,7 @@ class HCaptchaField extends FormField
     {
         $hCaptchaResponse = Controller::curr()->getRequest()->requestVar('h-captcha-response');
 
-        if (!isset($hCaptchaResponse)) {
+        if (!isset($hCaptchaResponse) || !$hCaptchaResponse) {
             $validator->validationError(
                 $this->name,
                 _t(
@@ -101,19 +101,27 @@ class HCaptchaField extends FormField
         }
 
         $secretKey = $this->getSecretKey();
-        $url = 'https://hcaptcha.com/siteverify' .
-            '?secret=' . $secretKey .
-            '&response=' . rawurlencode($hCaptchaResponse) .
-            '&remoteip=' . rawurlencode($_SERVER['REMOTE_ADDR']);
-        $ch = curl_init($url);
 
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, str_replace(',', '/', 'SilverStripe'));
-        $response = json_decode(curl_exec($ch), true);
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => 'https://hcaptcha.com/',
+        ]);
+
+        $response = $client->request(
+            'GET',
+            'siteverify',
+            [
+                'query' => [
+                    'secret' => $secretKey,
+                    'response' => rawurlencode($hCaptchaResponse),
+                    'remoteip' => rawurlencode($_SERVER['REMOTE_ADDR']),
+                ],
+            ]
+        );
+
+        $response = json_decode($response->getBody(), true);
 
         if (is_array($response)) {
-            if (array_key_exists('success', $response) && $response['success'] == false) {
+            if (array_key_exists('success', $response) && $response['success'] === false) {
                 $validator->validationError(
                     $this->name,
                     _t(
