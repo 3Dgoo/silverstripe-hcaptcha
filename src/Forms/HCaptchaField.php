@@ -151,7 +151,7 @@ class HCaptchaField extends FormField
      */
     public function getSiteKey()
     {
-        return $this->_sitekey ? $this->_sitekey : self::config()->site_key;
+        return $this->_siteKey ? $this->_siteKey : self::config()->site_key;
     }
 
     /**
@@ -160,7 +160,7 @@ class HCaptchaField extends FormField
      */
     public function setSiteKey($key)
     {
-        $this->_sitekey = $key;
+        $this->_siteKey = $key;
     }
 
     /**
