@@ -79,9 +79,9 @@ class HCaptchaField extends FormField
      */
     public function validate($validator)
     {
-        $hCaptchaResponse = Controller::curr()->getRequest()->requestVar('h-captcha-response');
+        $valid = $this->processCaptcha();
 
-        if (!isset($hCaptchaResponse) || !$hCaptchaResponse) {
+        if (!$valid) {
             $validator->validationError(
                 $this->name,
                 _t(
@@ -90,13 +90,21 @@ class HCaptchaField extends FormField
                 ),
                 'validation'
             );
-
-            return false;
         }
 
-        if (!function_exists('curl_init')) {
-            user_error('You must enable php-curl to use this field', E_USER_ERROR);
+        return $valid;
+    }
 
+
+    /**
+     * Validates the captcha against the hCaptcha API
+     * @return bool Returns boolean true if valid false if not
+     */
+    private function processCaptcha()
+    {
+        $hCaptchaResponse = Controller::curr()->getRequest()->requestVar('h-captcha-response');
+
+        if (!isset($hCaptchaResponse) || !$hCaptchaResponse) {
             return false;
         }
 
@@ -120,33 +128,16 @@ class HCaptchaField extends FormField
 
         $response = json_decode($response->getBody(), true);
 
-        if (is_array($response)) {
-            if (array_key_exists('success', $response) && $response['success'] === false) {
-                $validator->validationError(
-                    $this->name,
-                    _t(
-                        'X3dgoo\\HCaptcha\\Forms\\HCaptchaField.EMPTY',
-                        'Please answer the captcha. If you do not see the captcha please enable Javascript'
-                    ),
-                    'validation'
-                );
-
-                return false;
-            }
-        } else {
-            $validator->validationError(
-                $this->name,
-                _t(
-                    'X3dgoo\\HCaptcha\\Forms\\HCaptchaField.VALIDATE_ERROR',
-                    'Captcha could not be validated'
-                ),
-                'validation'
-            );
+        if (!is_array($response)) {
             $logger = Injector::inst()->get(LoggerInterface::class);
             $logger->error(
                 'Captcha validation failed as request was not successful.'
             );
 
+            return false;
+        }
+
+        if (array_key_exists('success', $response) && $response['success'] === false) {
             return false;
         }
 
