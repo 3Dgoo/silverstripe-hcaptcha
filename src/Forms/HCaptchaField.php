@@ -57,7 +57,7 @@ class HCaptchaField extends FormField
     public function Field($properties = [])
     {
         $siteKey = $this->getSiteKey();
-        $secretKey = $this->_secretKey ? $this->_secretKey : self::config()->secret_key;
+        $secretKey = $this->getSecretKey();
 
         if (empty($siteKey) || empty($secretKey)) {
             user_error(
@@ -100,9 +100,9 @@ class HCaptchaField extends FormField
             return false;
         }
 
-        $secret_key = $this->_secretKey ?: self::config()->secret_key;
+        $secretKey = $this->getSecretKey();
         $url = 'https://hcaptcha.com/siteverify' .
-            '?secret=' . $secret_key .
+            '?secret=' . $secretKey .
             '&response=' . rawurlencode($hCaptchaResponse) .
             '&remoteip=' . rawurlencode($_SERVER['REMOTE_ADDR']);
         $ch = curl_init($url);
@@ -152,6 +152,15 @@ class HCaptchaField extends FormField
     public function getSiteKey()
     {
         return $this->_siteKey ? $this->_siteKey : self::config()->site_key;
+    }
+
+    /**
+     * Gets the secret key configured via HCaptchaField.secret_key
+     * @return string
+     */
+    private function getSecretKey()
+    {
+        return $this->_secretKey ? $this->_secretKey : self::config()->secret_key;
     }
 
     /**
