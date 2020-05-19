@@ -26,10 +26,10 @@ class HCaptchaFieldTest extends FunctionalTest
         $this->expectException(PHPUnit_Framework_Error::class);
         $this->expectExceptionMessage(
             'You must configure HCaptchaField.site_key and HCaptchaField.secret_key. ' .
-                'You can retrieve these at https://hcaptcha.co'
+                'You can retrieve these at https://hcaptcha.com'
         );
 
-        $field = $hCaptchaField->Field();
+        $hCaptchaField->Field();
     }
 
     public function testField()
