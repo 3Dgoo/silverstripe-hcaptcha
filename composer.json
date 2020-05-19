@@ -12,6 +12,7 @@
         }
     ],
     "require": {
+        "guzzlehttp/guzzle": "^6.5",
         "silverstripe/framework": "^4.0",
         "silverstripe/spamprotection": "^3.0"
     },
