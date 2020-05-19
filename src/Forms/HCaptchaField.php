@@ -7,6 +7,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\Validator;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\View\Requirements;
 
 class HCaptchaField extends FormField
@@ -51,7 +52,7 @@ class HCaptchaField extends FormField
     /**
      * Adds in the requirements for the field
      * @param array $properties Array of properties for the form element (not used)
-     * @return string Rendered field template
+     * @return DBHTMLText Rendered field template
      */
     public function Field($properties = [])
     {
@@ -155,6 +156,7 @@ class HCaptchaField extends FormField
 
     /**
      * Setter for _siteKey to allow injector config to override the value
+     * @param string $key
      */
     public function setSiteKey($key)
     {
@@ -163,6 +165,7 @@ class HCaptchaField extends FormField
 
     /**
      * Setter for _secretKey to allow injector config to override the value
+     * @param string $key
      */
     public function setSecretKey($key)
     {
