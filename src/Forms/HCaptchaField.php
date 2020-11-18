@@ -37,6 +37,19 @@ class HCaptchaField extends FormField
     protected $_secretKey;
 
     /**
+     * Captcha theme, currently options are light and dark
+     * @var string
+     * @default light
+     */
+    private static $default_theme = 'light';
+
+    /**
+     * Captcha theme, currently options are light and dark
+     * @var string
+     */
+    private $_captchaTheme;
+
+    /**
      * Creates a new HCaptcha field.
      * @param string $name The internal field name, passed to forms.
      * @param string $title The human-readable field label.
@@ -47,6 +60,7 @@ class HCaptchaField extends FormField
         parent::__construct($name, $title, $value);
 
         $this->title = $title;
+        $this->_captchaTheme = self::config()->default_theme;
     }
 
     /**
@@ -94,7 +108,6 @@ class HCaptchaField extends FormField
 
         return $valid;
     }
-
 
     /**
      * Validates the captcha against the hCaptcha API
@@ -187,5 +200,26 @@ class HCaptchaField extends FormField
     public function getFormID()
     {
         return ($this->form ? $this->getTemplateHelper()->generateFormID($this->form) : null);
+    }
+
+    /**
+     * Sets the theme for this captcha
+     * @param string $value Theme to set it to, currently the api supports light and dark
+     * @return NocaptchaField
+     */
+    public function setTheme($value)
+    {
+        $this->_captchaTheme = $value;
+
+        return $this;
+    }
+
+    /**
+     * Gets the theme for this captcha
+     * @return string
+     */
+    public function getCaptchaTheme()
+    {
+        return $this->_captchaTheme;
     }
 }
