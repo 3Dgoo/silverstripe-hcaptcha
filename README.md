@@ -14,9 +14,9 @@ A spam protection field for Silverstripe using the hCaptcha service.
 
 ## Requirements
 
-* Silverstripe Framework 4.x
-* [Silverstripe Spam Protection 3.x](https://github.com/silverstripe/silverstripe-spamprotection/)
-* [Guzzle 6.5](https://github.com/guzzle/guzzle/tree/6.5)
+* Silverstripe Framework
+* [Silverstripe Spam Protection](https://github.com/silverstripe/silverstripe-spamprotection/)
+* [Guzzle](https://github.com/guzzle/guzzle/)
 
 ## Installation (with composer)
 
