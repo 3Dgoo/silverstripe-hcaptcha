@@ -44,6 +44,13 @@ class HCaptchaField extends FormField
     private static $default_theme = 'light';
 
     /**
+     * Send remoteip to the hCaptcha siteverify request
+     * @var boolean
+     * @default false
+     */
+    private static $send_remote_ip = false;
+
+    /**
      * Captcha theme, currently options are light and dark
      * @var string
      */
@@ -121,22 +128,14 @@ class HCaptchaField extends FormField
             return false;
         }
 
-        $secretKey = $this->getSecretKey();
-
         $client = new \GuzzleHttp\Client([
             'base_uri' => 'https://hcaptcha.com/',
         ]);
 
         $response = $client->request(
-            'GET',
+            'POST',
             'siteverify',
-            [
-                'query' => [
-                    'secret' => $secretKey,
-                    'response' => rawurlencode($hCaptchaResponse),
-                    'remoteip' => rawurlencode($_SERVER['REMOTE_ADDR']),
-                ],
-            ]
+            $this->getRequestData($hCaptchaResponse)
         );
 
         $response = json_decode($response->getBody(), true);
@@ -155,6 +154,27 @@ class HCaptchaField extends FormField
         }
 
         return true;
+    }
+
+    /**
+     * Generate the data for the hCaptcha server validation request
+     * @param string $hCaptchaResponse
+     * @return array Returns an array of query data for the hCaptcha server validation request
+     */
+    private function getRequestData($hCaptchaResponse)
+    {
+        $data = [
+            'secret' => $this->getSecretKey(),
+            'response' => rawurlencode($hCaptchaResponse),
+        ];
+
+        if (self::config()->send_remote_ip && $_SERVER['REMOTE_ADDR']) {
+            $data['remoteip'] = rawurlencode($_SERVER['REMOTE_ADDR']);
+        }
+
+        return [
+            'form_params' => $data,
+        ];
     }
 
     /**
