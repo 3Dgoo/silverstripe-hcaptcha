@@ -57,6 +57,13 @@ class HCaptchaField extends FormField
     private $_captchaTheme;
 
     /**
+     * Captcha language code
+     * @var string
+     * @default en
+     */
+    private static $language_code = 'en';
+
+    /**
      * Creates a new HCaptcha field.
      * @param string $name The internal field name, passed to forms.
      * @param string $title The human-readable field label.
@@ -88,7 +95,9 @@ class HCaptchaField extends FormField
             );
         }
 
-        Requirements::javascript('https://hcaptcha.com/1/api.js');
+        Requirements::javascript(
+            'https://hcaptcha.com/1/api.js?hl=' . self::config()->language_code
+        );
 
         return parent::Field($properties);
     }
