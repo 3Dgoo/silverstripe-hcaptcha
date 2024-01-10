@@ -7,6 +7,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\Validator;
+use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\View\Requirements;
 
@@ -59,9 +60,8 @@ class HCaptchaField extends FormField
     /**
      * Captcha language code
      * @var string
-     * @default en
      */
-    private static $language_code = 'en';
+    private static $language_code;
 
     /**
      * Creates a new HCaptcha field.
@@ -95,8 +95,10 @@ class HCaptchaField extends FormField
             );
         }
 
+        $languageCode = self::config()->language_code ?? i18n::getData()->langFromLocale(i18n::get_locale());
+
         Requirements::javascript(
-            'https://hcaptcha.com/1/api.js?hl=' . self::config()->language_code
+            'https://hcaptcha.com/1/api.js?hl=' . $languageCode
         );
 
         return parent::Field($properties);
