@@ -42,8 +42,10 @@ X3dgoo\HCaptcha\Forms\HCaptchaField:
 
 We generate our site key and secret key at https://www.hcaptcha.com/
 
-The language of the captcha can be changed by setting the language_code variable to any of the
-[available hCaptacha languages](https://docs.hcaptcha.com/languages/):
+The default language of the captcha will be set to the site language. This can be changed by setting 
+the language_code variable to any of the
+[available hCaptacha languages](https://docs.hcaptcha.com/languages/). If not set this will default 
+to the current site locale:
 
 ```yml
 X3dgoo\HCaptcha\Forms\HCaptchaField:
