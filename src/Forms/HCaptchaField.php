@@ -6,7 +6,7 @@ use Psr\Log\LoggerInterface;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\FormField;
-use SilverStripe\Forms\Validator;
+use SilverStripe\Forms\Validation\Validator;
 use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\View\Requirements;

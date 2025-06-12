@@ -8,7 +8,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/3dgoo/silverstripe-hcaptcha/v/unstable)](https://packagist.org/packages/3dgoo/silverstripe-hcaptcha)
 [![License](https://poser.pugx.org/3dgoo/silverstripe-hcaptcha/license)](LICENSE)
 
-A spam protection field for Silverstripe using the hCaptcha service.
+A spam protection field using the hCaptcha service for Silverstripe.
 
 <img src="docs/en/images/hcaptcha-screenshot.png" alt="hCaptcha screenshot" width="304" />
 

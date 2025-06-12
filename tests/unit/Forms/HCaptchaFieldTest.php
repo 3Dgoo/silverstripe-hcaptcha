@@ -2,10 +2,9 @@
 
 namespace X3dgoo\HCaptcha\Tests;
 
-use PHPUnit_Framework_Error;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\FunctionalTest;
-use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 use X3dgoo\HCaptcha\Forms\HCaptchaField;
 
 class HCaptchaFieldTest extends FunctionalTest
@@ -23,7 +22,7 @@ class HCaptchaFieldTest extends FunctionalTest
     {
         $hCaptchaField = new HCaptchaField('HCaptchaField');
 
-        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage(
             'You must configure HCaptchaField.site_key and HCaptchaField.secret_key. ' .
                 'You can retrieve these at https://hcaptcha.com'
@@ -51,7 +50,7 @@ class HCaptchaFieldTest extends FunctionalTest
 
         $hCaptchaField = new HCaptchaField('HCaptchaField');
 
-        $result = $hCaptchaField->validate(new RequiredFields());
+        $result = $hCaptchaField->validate(new RequiredFieldsValidator());
 
         $this->assertFalse($result);
     }
