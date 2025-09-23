@@ -5,6 +5,7 @@ namespace X3dgoo\HCaptcha\Forms;
 use Psr\Log\LoggerInterface;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Core\Validation\ValidationResult;
 use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\Validation\Validator;
 use SilverStripe\i18n\i18n;
@@ -106,25 +107,23 @@ class HCaptchaField extends FormField
 
     /**
      * Validates the captcha against the hCaptcha API
-     * @param Validator $validator Validator to send errors to
-     * @return bool Returns boolean true if valid false if not
+     * @return ValidationResult 
      */
-    public function validate($validator)
+    public function validate(): ValidationResult
     {
-        $valid = $this->processCaptcha();
+        $this->beforeExtending('updateValidate', function (ValidationResult $result) {
+            if ($this->processCaptcha() == false) {
+                $result->addFieldError(
+                    $this->getName(),
+                    _t(
+                        __CLASS__ . '.EMPTY',
+                        'Please answer the captcha. If you do not see the captcha please enable Javascript'
+                    )
+                );
+            }
+        });
 
-        if (!$valid) {
-            $validator->validationError(
-                $this->name,
-                _t(
-                    'X3dgoo\\HCaptcha\\Forms\\HCaptchaField.EMPTY',
-                    'Please answer the captcha. If you do not see the captcha please enable Javascript'
-                ),
-                'validation'
-            );
-        }
-
-        return $valid;
+        return parent::validate();
     }
 
     /**
